@@ -2,7 +2,7 @@
 # Lexical-Resources-2019 code repository
 
 This repository contains the canvas for the practical sessions of the "Lexical Ressources" class of the NLP Masters of Science @ Université de Lorraine.
-For questions pertaining to the lecture, you can contact either [Christophe Cerisara](mailto:christophe.cerisara@loria.fr "christophe.cerisara@loria.fr") or [Timothee Mickus](mailto:tmickus@loria.fr "tmickus@loria.fr").
+For questions pertaining to the lecture, you can contact either [Christophe Cerisara](mailto:christophe.cerisara@loria.fr "christophe.cerisara@loria.fr") or [Timothee Mickus](mailto:tmickus@loria.fr "tmickus@loria.fr"). Code was developped by Timothee Mickus.
 
 ## Installation
 Create a virtual environment & download the necessary libraries
@@ -43,9 +43,9 @@ FYI, the SpanEdit constructor is defined in `lexres/editor/utils/nlp.py`.
 ## How does the code work?
 *Reading this section is not required, but it's recommended (it's always good to know more when programming).*
 
-The code is more or less a basic [Django](https://www.djangoproject.com/ "Django Homepage") project. It defines a site called "lexres", which contains a single app called "editor". The porject closely follows the general documentation of Django, and you are invited to read the tutorials for a more thorough understanding of how Django works.
+The code is more or less a basic [Django](https://www.djangoproject.com/ "Django Homepage") project. It defines a site called "`lexres`", which contains a single app called "`editor`". The porject closely follows the general documentation of Django, and you are invited to read the tutorials for a more thorough understanding of how Django works.
 Here is a list of the specific settings and hacks:
 + databases engines have been removed, as we won't be using them.
-+ jQuery has been added (for AJAX functionalities, see `lexres/editor/templates/editor/ajax_funcs.html`)
++ jQuery has been added for AJAX functionalities, cf. `lexres/editor/templates/editor/ajax_funcs.html`; adapted from [this tutorial blogpost](https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html).
 + except for the default view in the `editor` app (cf. `lexres/editor/views.py:editor()`), all other views are endpoints for ajax services.
-+ the ajax endpoints use introspection to call each function in a specific `nlp/service` module, and create a dictionary mapping function names to lists of suggested outputs.
++ the AJAX endpoints use introspection to call each function in a specific `nlp/service` module, and create a dictionary mapping function names to lists of suggested outputs.

@@ -1,8 +1,29 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $.fn.read_spaced = function() {
-    return this.children("div").map(function(){return $(this).text().trim();}).get().join("\n");
+    if (this.children("div").length > 0) {
+      return this.children("div").map(function(){return $(this).text().trim();}).get().join("\n").trim();
+    } else {
+      return this.text().trim();
+    }
   }
+
+  function range(start, end)
+  {
+      var array = new Array();
+      for(var i = start; i < end; i++)
+      {
+          array.push(i);
+      }
+      return array;
+  }
+  function sortByKeyDesc(array, key) {
+        return array.sort(function (a, b) {
+            var x = a[key]; var y = b[key];
+            return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+        });
+    }
+
   // edition handler
   $(".text-area-editable").bind("keyup change", function () {
       var curtext = $(this).read_spaced();
@@ -13,15 +34,37 @@ $(document).ready(function() {
         },
         dataType: 'json',
         success: function (data) {
-          $(".predict-suggestions").empty()
-          var parsed = eval(data)
+          $(".edit-suggestions").empty();
+          var parsed = eval(data);
+          var orig_data = parsed.orig_data;
+          delete parsed.orig_data;
+          var sugg_edits = []
           for (var k in parsed) {
-              for (var predword in parsed[k]) {
-                $(".predict-suggestions").append(
-                  '<span class="prediction ' + k +'">' + predword + '</span>'
-                );
+              for (var i in parsed[k]) {
+                [b,e,swap] = parsed[k][i];
+                sugg_edits.push([b,e,swap,k]);
               }
+            }
+          // drop overlapping
+          var no_overlap = Array.from({length: orig_data.length}).fill(false);
+          var vals = [];
+          valid_edits : for (var sugg in sugg_edits) {
+            [b,e,swap,k] = sugg_edits[sugg];
+            for (var i in range(b,e)) {
+              if (no_overlap[i]) {
+                console.log("removing" + sugg_edits[sugg]);
+                continue valid_edits;
+              }
+            }
+            vals.push([b,e,swap,k]);
+            for (var i in range(b,e)) {no_overlap[i] = true;}
           }
+          vals_sorted = sortByKeyDesc(vals, 1)
+          for (var i in vals_sorted) {
+            [b,e,swap,k] = vals_sorted[i];
+            orig_data = orig_data.substring(0,b) + '<span class="edit-hoverable '+k+'" suggest="' + swap + '">' + orig_data.substring(b,e) + '</span>' + orig_data.substring(e, orig_data.length);
+            }
+          $(".edit-suggestions").html('<div>' + orig_data.trim().replace(/(?:\r\n|\r|\n)/g, '</div><div>') + '</div>');
         }
       });
     });
@@ -37,10 +80,13 @@ $(document).ready(function() {
         success: function (data) {
           $(".predict-suggestions").empty()
           var parsed = eval(data)
+          delete parsed.orig_data;
           for (var k in parsed) {
-              $(".predict-suggestions").append(
-                '<span class="prediction ' + k +'">' + parsed[k] + '</span>'
-              );
+              for (var predword in parsed[k]) {
+                $(".predict-suggestions").append(
+                  '<span class="prediction ' + k +'">' + parsed[k][predword] + '</span>'
+                );
+              }
           }
         }
       });
