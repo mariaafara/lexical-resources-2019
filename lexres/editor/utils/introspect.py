@@ -14,12 +14,18 @@ def run_func(module, func, *args, **kwargs):
     """
     return getattr(module, func)(*args, **kwargs)
 
-def as_dict(module, request):
+def as_dict(module, request, coerce=False):
     """
         Create a JSON-compatible dict from module introspection & request
     """
     raw_data = request.GET.get("text", None)
-    return {
-        f: run_func(module, f, text=raw_data)
-        for f in list_funcs_in_module(module)
-    }
+    if not coerce:
+        return {
+            f: run_func(module, f, text=raw_data)
+            for f in list_funcs_in_module(module)
+        }
+    else:
+        return {
+            f: list(map(list, run_func(module, f, text=raw_data)))
+            for f in list_funcs_in_module(module)
+        }

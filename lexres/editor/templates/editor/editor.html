@@ -14,11 +14,13 @@
       </div>
     </section>
     <section class="predict-suggestions">
-      {% for pred in predictions %}
+      {% for func, preds in predictions.items %}
         <!-- this loop should actually never be called, but it gives a general idea of the final layout -->
-        <span class="prediction">
-          {{ pred }}
-        </span>
+        {% for pred in preds %}
+          <span class="prediction {{ func }}">
+            {{ pred }}
+          </span>
+        {% endfor %}
       {% endfor %}
     </section>
     <section class="edit-suggestions">

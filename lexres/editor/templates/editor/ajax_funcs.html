@@ -16,9 +16,11 @@ $(document).ready(function() {
           $(".predict-suggestions").empty()
           var parsed = eval(data)
           for (var k in parsed) {
-              $(".predict-suggestions").append(
-                '<span class="prediction ' + k +'">' + parsed[k] + '</span>'
-              );
+              for (var predword in parsed[k]) {
+                $(".predict-suggestions").append(
+                  '<span class="prediction ' + k +'">' + predword + '</span>'
+                );
+              }
           }
         }
       });

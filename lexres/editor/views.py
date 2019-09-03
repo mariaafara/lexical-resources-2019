@@ -18,4 +18,4 @@ def ajax_preds(request):
     return JsonResponse(as_dict(preds_module, request))
 
 def ajax_edits(request):
-    return JsonResponse(as_dict(edits_module, request))
+    return JsonResponse(as_dict(edits_module, request, coerce=True))
