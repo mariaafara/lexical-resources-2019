@@ -15,7 +15,7 @@ Start the app using the Django script:
 ```sh
 python3 manage.py runserver
 ```
-Now go to the URL where the project is running, which should be http://127.0.0.1:8000/editor/
+Now go to the URL where the project is running, which should be http://127.0.0.1:8000/editor/. From this editor, you can test what you'll be coding.
 
 ## Working with the repository
 The repository contains two empty python script files: `lexres/editor/nlp/services/edits.py` and `lexres/editor/nlp/services/preds.py`. All code done during practical sessions can be plugged into these two files, and will be detected automatically by the web application.
