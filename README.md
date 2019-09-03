@@ -2,6 +2,7 @@
 # Lexical-Resources-2019 code repository
 
 This repository contains the canvas for the practical sessions of the "Lexical Ressources" class of the NLP Masters of Science @ Université de Lorraine.
+For questions pertaining to the lecture, you can contact either [Christophe Cerisara](mailto:christophe.cerisara@loria.fr "christophe.cerisara@loria.fr") or [Timothee Mickus](mailto:tmickus@loria.fr "tmickus@loria.fr").
 
 ## Installation
 Create a virtual environment & download the necessary libraries
