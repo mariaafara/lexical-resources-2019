@@ -6,16 +6,26 @@
 
 {% block content %}
 <section class="editor-main">
-    Type your code below!
-    <section class="input-section">
-      <div contenteditable="true" class="text-area-editable whitespace-friendly"
-      pred-tgt-handler="{% url 'preds' %}" edit-tgt-handler="{% url 'edits' %}">
-            {{ text }}
-      </div>
-    </section>
+  <header>
+    <h1>
+      Type your code below!
+    </h1>
+  </header>
+  <section class="input-section">
+    <div contenteditable="true" class="text-area-editable whitespace-friendly"
+    pred-tgt-handler="{% url 'preds' %}" edit-tgt-handler="{% url 'edits' %}">
+          {{ text }}
+    </div>
+  </section>
+  <section class="wrap-predicts">
+    <header>
+      <h1>
+        Suggested Next Words
+      </h1>
+    </header>
     <section class="predict-suggestions">
       {% for func, preds in predictions.items %}
-        <!-- this loop should actually never be called, but it gives a general idea of the final layout -->
+        <!-- this loop is actually never called, but it gives a general idea of the final layout -->
         {% for pred in preds %}
           <span class="prediction {{ func }}">
             {{ pred }}
@@ -23,13 +33,21 @@
         {% endfor %}
       {% endfor %}
     </section>
+  </section>
+  <section class="wrap-edits">
+    <header>
+      <h1>
+        Suggested edits
+      </h1>
+    </header>
     <section class="edit-suggestions">
       {% for edit in edits %}
-        <!-- this loop should actually never be called, but it gives a general idea of the final layout -->
+        <!-- this loop is actually never called, but it gives a general idea of the final layout -->
         <span class="edit">
           {{ pred }}
         </span>
       {% endfor %}
     </section>
+  </section>
 </section>
 {% endblock %}

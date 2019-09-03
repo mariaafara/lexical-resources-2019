@@ -11,8 +11,7 @@ from .nlp.services import preds as preds_module
 from .nlp.services import edits as edits_module
 
 def editor(request):
-    context = {"text":"DEFAULT", "predictions":[]}
-    return render(request, "editor/editor.html", context)
+    return render(request, "editor/editor.html")
 
 def ajax_preds(request):
     return JsonResponse(as_dict(preds_module, request))
