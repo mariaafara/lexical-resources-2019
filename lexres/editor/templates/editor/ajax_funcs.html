@@ -1,0 +1,47 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $.fn.read_spaced = function() {
+    return this.children("div").map(function(){return $(this).text().trim();}).get().join("\n");
+  }
+  // edition handler
+  $(".text-area-editable").bind("keyup change", function () {
+      var curtext = $(this).read_spaced();
+      $.ajax({
+        url: $(this).attr("edit-tgt-handler"),
+        data: {
+          'text': curtext
+        },
+        dataType: 'json',
+        success: function (data) {
+          $(".predict-suggestions").empty()
+          var parsed = eval(data)
+          for (var k in parsed) {
+              $(".predict-suggestions").append(
+                '<span class="prediction ' + k +'">' + parsed[k] + '</span>'
+              );
+          }
+        }
+      });
+    });
+  // prediction handler
+  $(".text-area-editable").bind("keyup change", function () {
+      var curtext = $(this).read_spaced();
+      $.ajax({
+        url: $(this).attr("pred-tgt-handler"),
+        data: {
+          'text': curtext
+        },
+        dataType: 'json',
+        success: function (data) {
+          $(".predict-suggestions").empty()
+          var parsed = eval(data)
+          for (var k in parsed) {
+              $(".predict-suggestions").append(
+                '<span class="prediction ' + k +'">' + parsed[k] + '</span>'
+              );
+          }
+        }
+      });
+    });
+  });
+</script>

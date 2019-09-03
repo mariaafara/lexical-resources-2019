@@ -1,25 +1,21 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 # utilities for introspection
-from .utils.introspect import list_funcs_in_module, run_func
+from .utils.introspect import as_dict
 
 # specific modules
 from .nlp.services import preds as preds_module
 from .nlp.services import edits as edits_module
 
-def index(request):
-    return HttpResponse("Place holder for editor view")
-
+def editor(request):
+    context = {"text":"DEFAULT", "predictions":[]}
+    return render(request, "editor/editor.html", context)
 
 def ajax_preds(request):
-    for f in list_funcs_in_module(preds_module):
-        run_func(preds_module, f)
-    pass
+    return JsonResponse(as_dict(preds_module, request))
 
 def ajax_edits(request):
-    for f in list_funcs_in_module(edits_module):
-        run_func(preds_module, f)
-    pass
+    return JsonResponse(as_dict(edits_module, request))

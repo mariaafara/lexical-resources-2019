@@ -1,0 +1,33 @@
+{% extends 'editor/base.html' %}
+
+{%block scripts %}
+  {% include "editor/ajax_funcs.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="editor-main">
+    Type your code below!
+    <section class="input-section">
+      <div contenteditable="true" class="text-area-editable whitespace-friendly"
+      pred-tgt-handler="{% url 'preds' %}" edit-tgt-handler="{% url 'edits' %}">
+            {{ text }}
+      </div>
+    </section>
+    <section class="predict-suggestions">
+      {% for pred in predictions %}
+        <!-- this loop should actually never be called, but it gives a general idea of the final layout -->
+        <span class="prediction">
+          {{ pred }}
+        </span>
+      {% endfor %}
+    </section>
+    <section class="edit-suggestions">
+      {% for edit in edits %}
+        <!-- this loop should actually never be called, but it gives a general idea of the final layout -->
+        <span class="edit">
+          {{ pred }}
+        </span>
+      {% endfor %}
+    </section>
+</section>
+{% endblock %}

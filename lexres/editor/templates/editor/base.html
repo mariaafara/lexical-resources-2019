@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+    <head>
+        <title>Lexical Resources Class - Smart Editor</title>
+        <link rel="stylesheet" href="{{ STATIC_URL }} /static/css/editor.css" />
+        <script src="{{ STATIC_URL }} /static/js/jquery.js" >
+        </script>
+        {% block scripts %}
+        {% endblock %}
+    </head>
+    <body>
+        <header class="page-header">
+            <h1><a href="{% url 'editor' %}">Online Text Editor</a></h1>
+        </header>
+
+        <main>
+          {% block content %}
+          {% endblock %}
+        </main>
+    </body>
+</html>

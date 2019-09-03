@@ -3,5 +3,8 @@
     Functions will be called in order by the hook in editor/views.
     Functions should all share the same signature
 """
-def preds_foo_func():
-    print("foo")
+def preds_foo_func(text=None):
+    """
+        this is an example function for testing purposes. To be removed.
+    """
+    return "some predicted foo"
