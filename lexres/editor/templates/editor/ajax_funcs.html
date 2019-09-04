@@ -21,31 +21,15 @@ $(document).ready(function() {
     document.body.removeChild(e);
   });
 
+  // accept all edits at once
   $('.action-accept-edits').click(function() {
-    console.log($(".edit-suggestions").html());
     $(".edit-suggestions span.edit-hoverable").each(function() {
-      console.log($(this));
-      $(this).text($(this).attr("suggest"));
+      $(this).replaceWith($(this).attr("suggest"));
     });
     $(".text-area-editable").empty().html($(".edit-suggestions").html());
     $(".edit-suggestions").empty();
     $("footer.edit-footer").addClass("undisplayed");
   });
-
-  function range(start, end) {
-      var array = new Array();
-      for(var i = start; i < end; i++) {
-          array.push(i);
-      }
-      return array;
-  }
-
-  function sortByKeyDesc(array, key) {
-        return array.sort(function (a, b) {
-            var x = a[key]; var y = b[key];
-            return ((x > y) ? -1 : ((x < y) ? 1 : 0));
-        });
-    }
 
   // edition handler
   $(".text-area-editable").bind("keyup change", function () {
@@ -74,28 +58,39 @@ $(document).ready(function() {
         var vals = [];
         valid_edits : for (var sugg in sugg_edits) {
           [b,e,swap,k] = sugg_edits[sugg];
-          for (var i in range(b,e)) {
+          // build range
+          var r = new Array();
+          for(var i = b; i < e; i++) {
+              r.push(i);
+          }
+          for (var i in r) {
             if (no_overlap[i]) {
-              console.log("removing" + sugg_edits[sugg]);
+              // previously marked as used
+              console.log("dropping suggestion" + sugg_edits[sugg]);
               continue valid_edits;
             }
           }
           vals.push([b,e,swap,k]);
-          for (var i in range(b,e)) {
+          for (var i in r) {
+            // mark slice as used
             no_overlap[i] = true;
           }
         }
-        vals_sorted = sortByKeyDesc(vals, 1)
+        // add spans from last to first to avoid messing up b & e indices
+        vals_sorted = vals.sort((a, b) => ((a[1] > b[1])? -1 : ((a[1] < b[1])? 1 : 0)));
         for (var i in vals_sorted) {
           [b,e,swap,k] = vals_sorted[i];
           orig_data = orig_data.substring(0,b) + '<span class="edit-hoverable '+k+'" suggest="' + swap + '">' + orig_data.substring(b,e) + '</span>' + orig_data.substring(e, orig_data.length);
         }
+        // fill preview
         $(".edit-suggestions").html('<div>' + orig_data.trim().replace(/(?:\r\n|\r|\n)/g, '</div><div>') + '</div>');
+        // make the "accept all edits" button available
         $("footer.edit-footer").removeClass("undisplayed");
       }
     });
   });
 
+  // hover edits
   $(document).on("mouseover", ".edit-hoverable", function(){
     $(this).append('<span class="hover-content">' + $(this).attr("suggest") + '</span>');
   }).on("mouseout", ".edit-hoverable", function(){
