@@ -30,3 +30,12 @@ span.edit-hoverable span.hover-content {
   border-width: 1px;
   border-radius: 3px;
 }
+
+span.prediction {
+  padding-left: 10px;
+  padding-right:10px;
+}
+
+footer {
+  padding-top: 10px;
+}
