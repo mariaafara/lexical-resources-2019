@@ -1,5 +1,7 @@
-
-
 .whitespace-friendly {
     white-space: pre-wrap;
+}
+
+.undisplayed {
+  display: none;
 }

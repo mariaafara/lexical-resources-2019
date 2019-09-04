@@ -8,6 +8,29 @@ $(document).ready(function() {
     }
   }
 
+  $('.action-download').click(function() {
+    var text = $(".text-area-editable").read_spaced() + '\n'
+    var e = document.createElement('a');
+    e.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    e.setAttribute('download', "edited.txt");
+    e.style.display = 'none';
+    document.body.appendChild(e);
+    e.click();
+    document.body.removeChild(e);
+  });
+
+  $('.action-accept-edits').click(function() {
+    console.log($(".edit-suggestions").html());
+    $(".edit-suggestions span.edit-hoverable").each(function(){
+      console.log($(this));
+      $(this).text($(this).attr("suggest"));
+    });
+
+    $(".text-area-editable").empty().html($(".edit-suggestions").html());
+    $(".edit-suggestions").empty();
+    $("footer.edit-footer").addClass("undisplayed");
+  });
+
   function range(start, end)
   {
       var array = new Array();
@@ -66,6 +89,7 @@ $(document).ready(function() {
           orig_data = orig_data.substring(0,b) + '<span class="edit-hoverable '+k+'" suggest="' + swap + '">' + orig_data.substring(b,e) + '</span>' + orig_data.substring(e, orig_data.length);
           }
         $(".edit-suggestions").html('<div>' + orig_data.trim().replace(/(?:\r\n|\r|\n)/g, '</div><div>') + '</div>');
+        $("footer.edit-footer").removeClass("undisplayed");
       }
     });
   });
