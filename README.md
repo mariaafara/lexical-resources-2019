@@ -15,7 +15,7 @@ Start the app using the Django script:
 ```sh
 python3 manage.py runserver
 ```
-Now go to the URL where the project is running, which should be http://127.0.0.1:8000/editor/. From this editor, you can test what you'll be coding.
+Now go to the URL where the project is running, which should be http://127.0.0.1:8000/editor/ (any URL starting with http://127.0.0.1:8000/ should redirect you to the correct page). From this editor, you can test what you'll be coding.
 
 ## Working with the repository
 The repository contains two empty python script files: `lexres/editor/nlp/services/edits.py` and `lexres/editor/nlp/services/preds.py`. All code done during practical sessions can be plugged into these two files, and will be detected automatically by the web application.
@@ -46,6 +46,7 @@ FYI, the SpanEdit constructor is defined in `lexres/editor/utils/nlp.py`.
 The code is more or less a basic [Django](https://www.djangoproject.com/ "Django Homepage") project. It defines a site called "`lexres`", which contains a single app called "`editor`". The porject closely follows the general documentation of Django, and you are invited to read the tutorials for a more thorough understanding of how Django works.
 Here is a list of the specific settings and hacks:
 + databases engines have been removed, as we won't be using them.
++ static files are handled via template inclusion (static files are in `templates/editor/definitely_not_static/`), rather than collect & serve
 + jQuery has been added for AJAX functionalities, cf. `lexres/editor/templates/editor/ajax_funcs.html`; adapted from [this tutorial blogpost](https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html).
 + except for the default view in the `editor` app (cf. `lexres/editor/views.py:editor()`), all other views are endpoints for ajax services.
 + the AJAX endpoints use introspection to call each function in a specific `nlp/service` module, and create a dictionary mapping function names to lists of suggested outputs.
