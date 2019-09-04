@@ -1,4 +1,5 @@
 <script type="text/javascript">
+
 $(document).ready(function() {
   $.fn.read_spaced = function() {
     if (this.children("div").length > 0) {
@@ -9,6 +10,7 @@ $(document).ready(function() {
   }
 
   $('.action-download').click(function() {
+    // ripped from https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
     var text = $(".text-area-editable").read_spaced() + '\n'
     var e = document.createElement('a');
     e.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -40,6 +42,7 @@ $(document).ready(function() {
       }
       return array;
   }
+
   function sortByKeyDesc(array, key) {
         return array.sort(function (a, b) {
             var x = a[key]; var y = b[key];
@@ -93,6 +96,7 @@ $(document).ready(function() {
       }
     });
   });
+  
   // prediction handler
   $(".text-area-editable").bind("keyup change", function () {
       var curtext = $(this).read_spaced();
