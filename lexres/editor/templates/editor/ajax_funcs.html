@@ -96,6 +96,12 @@ $(document).ready(function() {
     });
   });
 
+  $(document).on("mouseover", ".edit-hoverable", function(){
+    $(this).append('<span class="hover-content">' + $(this).attr("suggest") + '</span>');
+  }).on("mouseout", ".edit-hoverable", function(){
+    $(this).children(".hover-content").remove();
+  });
+
   // prediction handler
   $(".text-area-editable").bind("keyup change", function () {
       var curtext = $(this).read_spaced();

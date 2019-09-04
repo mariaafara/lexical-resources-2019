@@ -16,3 +16,17 @@
   border-width: 1px;
   border-radius: 15px;
 }
+
+span.edit-hoverable {
+  background-color: #ffcc66;
+  position: relative;
+}
+
+span.edit-hoverable span.hover-content {
+  display: block;
+  position: absolute;
+  background: #fff;
+  border-style: dotted;
+  border-width: 1px;
+  border-radius: 3px;
+}
