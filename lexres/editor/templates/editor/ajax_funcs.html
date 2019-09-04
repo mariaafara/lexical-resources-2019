@@ -23,21 +23,18 @@ $(document).ready(function() {
 
   $('.action-accept-edits').click(function() {
     console.log($(".edit-suggestions").html());
-    $(".edit-suggestions span.edit-hoverable").each(function(){
+    $(".edit-suggestions span.edit-hoverable").each(function() {
       console.log($(this));
       $(this).text($(this).attr("suggest"));
     });
-
     $(".text-area-editable").empty().html($(".edit-suggestions").html());
     $(".edit-suggestions").empty();
     $("footer.edit-footer").addClass("undisplayed");
   });
 
-  function range(start, end)
-  {
+  function range(start, end) {
       var array = new Array();
-      for(var i = start; i < end; i++)
-      {
+      for(var i = start; i < end; i++) {
           array.push(i);
       }
       return array;
@@ -84,19 +81,21 @@ $(document).ready(function() {
             }
           }
           vals.push([b,e,swap,k]);
-          for (var i in range(b,e)) {no_overlap[i] = true;}
+          for (var i in range(b,e)) {
+            no_overlap[i] = true;
+          }
         }
         vals_sorted = sortByKeyDesc(vals, 1)
         for (var i in vals_sorted) {
           [b,e,swap,k] = vals_sorted[i];
           orig_data = orig_data.substring(0,b) + '<span class="edit-hoverable '+k+'" suggest="' + swap + '">' + orig_data.substring(b,e) + '</span>' + orig_data.substring(e, orig_data.length);
-          }
+        }
         $(".edit-suggestions").html('<div>' + orig_data.trim().replace(/(?:\r\n|\r|\n)/g, '</div><div>') + '</div>');
         $("footer.edit-footer").removeClass("undisplayed");
       }
     });
   });
-  
+
   // prediction handler
   $(".text-area-editable").bind("keyup change", function () {
       var curtext = $(this).read_spaced();

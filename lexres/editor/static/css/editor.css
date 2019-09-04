@@ -5,3 +5,14 @@
 .undisplayed {
   display: none;
 }
+
+.page-header h1 a {
+  color: black;
+  text-decoration: none;
+}
+
+.text-area-editable {
+  border-style: dotted;
+  border-width: 1px;
+  border-radius: 15px;
+}
