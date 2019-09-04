@@ -14,7 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import include, path
+from editor.views import handle_404
 
 urlpatterns = [
     path('editor/', include('editor.urls')),
 ]
+
+handler404 = handle_404

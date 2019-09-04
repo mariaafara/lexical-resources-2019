@@ -1,6 +1,4 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
 # utilities for introspection
@@ -18,3 +16,6 @@ def ajax_preds(request):
 
 def ajax_edits(request):
     return JsonResponse(as_dict(edits_module, request, coerce=True))
+
+def handle_404(request, exception):
+    return redirect("editor")

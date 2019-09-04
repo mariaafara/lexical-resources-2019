@@ -2,8 +2,11 @@
 <html>
     <head>
         <title>Lexical Resources Class - Smart Editor</title>
-        <link rel="stylesheet" href="{{ STATIC_URL }} /static/css/editor.css" />
-        <script src="{{ STATIC_URL }} /static/js/jquery.js" >
+        <style>
+          {% include "editor/definitely_not_static/editor.css" %}
+        </style>
+        <script >
+          {% include "editor/definitely_not_static/jquery.js" %}
         </script>
         {% block scripts %}
         {% endblock %}
