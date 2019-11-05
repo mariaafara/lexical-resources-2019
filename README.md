@@ -1,8 +1,8 @@
 
 # Lexical-Resources-2019 code repository
 
-This repository contains the canvas for the practical sessions of the "Lexical Ressources" class of the NLP Masters of Science @ Université de Lorraine.
-For questions pertaining to the lecture, you can contact either [Christophe Cerisara](mailto:christophe.cerisara@loria.fr "christophe.cerisara@loria.fr") or [Timothee Mickus](mailto:tmickus@loria.fr "tmickus@loria.fr"). Code was developped by Timothee Mickus.
+This repository contains the canvas for the class project of the "Lexical Resources" class of the NLP Masters of Science @ Université de Lorraine.
+For questions pertaining to the lecture, you can contact either [Christophe Cerisara](mailto:christophe.cerisara@loria.fr "christophe.cerisara@loria.fr") or [Timothee Mickus](mailto:tmickus@loria.fr "tmickus@loria.fr"). Code was developed by Timothee Mickus.
 
 ## Installation
 Create a virtual environment & download the necessary libraries
@@ -19,9 +19,13 @@ python3 manage.py runserver
 Once the server is started, go to the URL where the project is running, which should be http://127.0.0.1:8000/editor/ (any URL starting with http://127.0.0.1:8000/ should redirect you to the correct page). From this editor, you can test what you'll be coding.
 
 ## Working with the repository
-The repository contains two (almost empty) python script files: `lexres/editor/nlp/services/edits.py` and `lexres-site/editor/nlp/services/preds.py`. All code done during practical sessions can be added to these two files, and will be detected automatically by the web application.
+The repository contains two (almost empty) python script files: `lexres/editor/nlp/services/edits.py` and `lexres-site/editor/nlp/services/preds.py`. What you code for this class project can be added to these two files, and will be detected automatically by the web application.
 
 Functions listed in `lexres-site/editor/nlp/services/preds.py` are intended to predict the next word, given what was already written by the user. Functions listed in `lexres-site/editor/nlp/services/edits.py` are meant to propose edits & changes to the text, eg. by highlighting spelling mistakes.
+
+If you want or need to add helper functions and classes, consider implementing those the `lexres-site/editor/utils/nlp.py` module, which already contains one helper class for the `edits.py` module. This is however not a hard requirement: anything goes as long as your final submission runs as intend.
+
+Notify your teachers if you can't make the code run.
 
 **These files should contain functions which must have a specific signature.** For now, these files contain one example each.
 Namely, all functions in `lexres-site/editor/nlp/services/preds.py` should have a keyword argument "text", and should yield a list of strings. Here's an example:
