@@ -23,10 +23,6 @@ The repository contains two (almost empty) python script files: `lexres/editor/n
 
 Functions listed in `lexres-site/editor/nlp/services/preds.py` are intended to predict the next word, given what was already written by the user. Functions listed in `lexres-site/editor/nlp/services/edits.py` are meant to propose edits & changes to the text, eg. by highlighting spelling mistakes.
 
-If you want or need to add helper functions and classes, consider implementing those the `lexres-site/editor/utils/nlp.py` module, which already contains one helper class for the `edits.py` module. This is however not a hard requirement: anything goes as long as your final submission runs as intend.
-
-Notify your teachers if you can't make the code run.
-
 **These files should contain functions which must have a specific signature.** For now, these files contain one example each.
 Namely, all functions in `lexres-site/editor/nlp/services/preds.py` should have a keyword argument "text", and should yield a list of strings. Here's an example:
 ```python
@@ -44,14 +40,18 @@ def edit_bar_function(text=""):
     ]
 ```
 FYI, the SpanEdit constructor is defined in `lexres-site/editor/utils/nlp.py`.
+If you want or need to add helper functions and classes, consider implementing those in that `lexres-site/editor/utils/nlp.py` file. This is however not a hard requirement: anything goes as long as your final submission runs as intended.
+
+Notify your teachers if you can't make the code run.
+
 
 ## How does the code work?
 *Reading this section is not required, but it's recommended (it's always good to know more when programming).*
 
-The code is more or less a basic [Django](https://www.djangoproject.com/ "Django Homepage") project. It defines a site called "`lexres`", which contains a single app called "`editor`". The porject closely follows the general documentation of Django, and you are invited to read the tutorials for a more thorough understanding of how Django works.
+The code is more or less a basic [Django](https://www.djangoproject.com/ "Django Homepage") project. It defines a site called "`lexres`", which contains a single app called "`editor`". The project closely follows the general documentation of Django, and you are invited to read the tutorials for a more thorough understanding of how Django works.
 Here is a list of the specific settings and hacks:
 + databases engines have been removed, as we won't be using them.
-+ static files are handled via template inclusion (static files are in `lexres-site/editor/templates/editor/definitely_not_static/`), rather than collect & serve
++ static files are handled via template inclusion (static files are in `lexres-site/editor/templates/editor/definitely_not_static/`), rather than collect & serve.
 + jQuery has been added for AJAX functionalities, cf. `lexres-site/editor/templates/editor/ajax_funcs.html`; adapted from [this tutorial blogpost](https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html).
 + except for the default view in the `editor` app (cf. `lexres-site/editor/views.py:editor()`), all other views are endpoints for ajax services.
 + the AJAX endpoints use introspection to call each function in a specific `nlp/service` module, and create a dictionary mapping function names to lists of suggested outputs.
